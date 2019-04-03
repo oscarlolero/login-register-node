@@ -4,7 +4,19 @@ module.exports = (app, passport) => {
             message: req.flash('loginMessage')
         });
     });
-    app.post('/login', (req,res) => {
+    app.post('/login', passport.authenticate('local-login' , {
+        successRedirect: '/yay',
+        failureRedirect: '/',
+        failureFlash: true
+    }));
 
+    app.get('/logout', (req,res) => {
+        req.logout();
+        res.redirect('/login');
+    });
+
+    app.get('/logout', (req,res) => {
+        req.logout();
+        res.redirect('/login');
     });
 };

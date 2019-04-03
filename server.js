@@ -10,30 +10,27 @@ const bodyParser = require('body-parser'); //procesar información desde el nave
 const session = require('express-session');
 
 
-// require('./config/passport')(passport);
+require('./config/passport')(passport); //Configurar passsport
 
 //Configuraciones
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs'); //Configurar motor de plantillas
 
-//Configurar y probar conexión a base de datos.
-const PostgreSQLClient = require('./config/database');
+//Configurar y probar conexión a base de datos..
+const pool = require('./config/database');
 (async () => {
     //Verificar que la conexión a la BD es exitosa
     try {
-        await PostgreSQLClient.connect();
-        console.log('Conectado a la base de datos.');
-        //Verificar que la tabla "users" existe
         try {
-            await PostgreSQLClient.query('SELECT * FROM users');
+            await pool.query('SELECT * FROM users');
+            console.log('Conexión establecida con la base de datos.');
+
         } catch(err) {
-            return console.log("Error: No existe la tabla \"users\".");
+            return console.log("Error: Fallo en la conexión en la base de datos o no existe la tabla 'users'");
         }
     } catch(err) {
         return console.log("Error al conectar con la base de datos.");
-    } finally {
-        PostgreSQLClient.end();
     }
 })();
 

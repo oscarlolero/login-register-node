@@ -1,33 +1,35 @@
 const LocalStrategy = require('passport-local').Strategy;
-const PostgreSQLClient 
+const pool = require('./../config/database');
 module.exports = (passport) => {
     passport.serializeUser((user, done) => {
-        // done(null, user.id);
+        done(null, user);
     });
 
     passport.deserializeUser((id, done) => {
-        // user.findbyid()
+        done(null, user);
     });
 
     passport.use('local-login', new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
-    }, function(req, username, inPassword, done) {
-        const query = `SELECT * FROM users WHERE username = '${username}'`;
+    }, async function(req, username, inPassword, done) {
 
-        sql.query(database.msurl, query, (err, rows) => {
-            if(err) {
-                done(null, false, req.flash('loginMessage', 'Error al conectar con la base de datos.'));
-                return console.log(err);
+        const query = `SELECT * FROM users WHERE username = '${username}'`;
+        (async () => {
+            //Verificar que los datos sean correctos
+            try {
+                const res = await pool.query(query);
+                if(res.rowCount == 0) {
+                    return done(null, false, req.flash('loginMessage', 'El usuario no existe.'));
+                }
+                if(res.rows[0].password != inPassword)  {
+                    return done(null, false, req.flash('loginMessage', 'Contraseña incorrecta.'));
+                }
+                return done(null, res.rows[0]);
+            } catch(err) {
+                return done(null, false, req.flash('loginMessage', 'Error al conectar con la base de datos.'));
             }
-            if(rows.length == 0) {
-                return done(null, false, req.flash('loginMessage', 'El usuario no existe.'));
-            }
-            if(rows[0].user_pass != inPassword)  {
-                return done(null, false, req.flash('loginMessage', 'Contraseña incorrecta.'));
-            }
-            return done(null, rows[0]);
-        });
+        })();
     }));
 }
