@@ -1,3 +1,10 @@
-module.exports = {
-    'postgreSQLurl': 'postgres://postgress:6932124@localhost:5432/login-register'
-};
+const { Client } = require('pg');
+const PostgreSQLClient = new Client({
+    user: 'postgres',
+    password: '6932124',
+    database: 'login-register',
+    host: 'localhost',
+    port: 5432
+});
+
+module.exports = PostgreSQLClient;

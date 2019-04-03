@@ -8,7 +8,7 @@ const morgan = require('morgan'); //logeo de peticiones http
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser'); //procesar información desde el navegador al servidor
 const session = require('express-session');
-const { Client } = require('pg');
+
 
 // require('./config/passport')(passport);
 
@@ -18,28 +18,24 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs'); //Configurar motor de plantillas
 
 //Configurar y probar conexión a base de datos.
-const client = new Client({
-    user: 'postgres',
-    password: '6932124',
-    database: 'login-register',
-    host: 'localhost',
-    port: 5432
-});
-client.connect();
-client.query('SELECT $1::text as message', ['testing'], (err, res) => {
-    if(err) {
-        console.log("Error al conectar con la base de datos.");
-        return;
-    }
-    client.query('SELECT * FROM users', (err, res) => {
-        if(err) {
-            console.log("Error: No existe la tabla \"users\".");
-            return;
+const PostgreSQLClient = require('./config/database');
+(async () => {
+    //Verificar que la conexión a la BD es exitosa
+    try {
+        await PostgreSQLClient.connect();
+        console.log('Conectado a la base de datos.');
+        //Verificar que la tabla "users" existe
+        try {
+            await PostgreSQLClient.query('SELECT * FROM users');
+        } catch(err) {
+            return console.log("Error: No existe la tabla \"users\".");
         }
-        console.log("Conectado a la base de datos.");
-        client.end();
-    });
-});
+    } catch(err) {
+        return console.log("Error al conectar con la base de datos.");
+    } finally {
+        PostgreSQLClient.end();
+    }
+})();
 
 //middlewares
 app.use(morgan('dev')); //Logeo de peticiones al servidor
