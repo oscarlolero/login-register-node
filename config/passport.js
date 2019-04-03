@@ -5,7 +5,7 @@ module.exports = (passport) => {
         done(null, user);
     });
 
-    passport.deserializeUser((id, done) => {
+    passport.deserializeUser((user, done) => {
         done(null, user);
     });
 
@@ -14,7 +14,6 @@ module.exports = (passport) => {
         passwordField: 'password',
         passReqToCallback: true
     }, async function(req, username, inPassword, done) {
-
         const query = `SELECT * FROM users WHERE username = '${username}'`;
         (async () => {
             //Verificar que los datos sean correctos

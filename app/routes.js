@@ -1,22 +1,31 @@
 module.exports = (app, passport) => {
-    app.get('/', (req,res) => {
-        res.render('login', {
-            message: req.flash('loginMessage')
-        });
+    app.get('/login', (req,res) => {
+        if(req.isAuthenticated()) { //mehtodo de passport 
+            res.redirect('/index');  
+        } else {
+            res.render('login', {
+                message: req.flash('loginMessage')
+            });
+        }
     });
     app.post('/login', passport.authenticate('local-login' , {
-        successRedirect: '/yay',
-        failureRedirect: '/',
+        successRedirect: '/index',
+        failureRedirect: '/login',
         failureFlash: true
     }));
 
     app.get('/logout', (req,res) => {
         req.logout();
-        res.redirect('/login');
+        res.render('login', {
+            message: req.flash('loginMessage')
+        });
     });
 
-    app.get('/logout', (req,res) => {
-        req.logout();
-        res.redirect('/login');
+    app.get('/index', (req,res) => {
+        if(req.isAuthenticated()) {
+            res.render('index');    
+        } else {
+            res.redirect('/login');
+        }
     });
 };

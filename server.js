@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser'); //procesar información desde el navegador al servidor
 const session = require('express-session');
 
-
 require('./config/passport')(passport); //Configurar passsport
 
 //Configuraciones
@@ -53,6 +52,12 @@ require('./app/routes')(app, passport);
 //Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Handle 404
+app.use((req, res) => {
+    res.redirect('/login');
+});
+
 app.listen(app.get('port'), () => {
     console.log('Server encendido en puerto', app.get('port'));
 });
+
