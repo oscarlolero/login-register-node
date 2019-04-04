@@ -1,6 +1,7 @@
 const pool = require('./../config/database');
 module.exports = (app, passport) => {
 
+    //GET INDEX
     app.get('/index', checkAuthentication, (req,res) => {
         let permisos = [req.session.passport.user.permiso1, req.session.passport.user.permiso2, req.session.passport.user.permiso3];
 
@@ -14,6 +15,7 @@ module.exports = (app, passport) => {
         }
     });
 
+    //GET LOGIN
     app.get('/login', (req,res) => {
         if(req.isAuthenticated()) {
             res.redirect('/index');  
@@ -24,12 +26,14 @@ module.exports = (app, passport) => {
         }
     });
 
+    //POST LOGIN
     app.post('/login', passport.authenticate('local-login' , {
         successRedirect: '/index',
         failureRedirect: '/login',
         failureFlash: true
     }));
 
+    //GET LOGOUT
     app.get('/logout', checkAuthentication, (req,res) => {
         req.logout();
         res.render('login', {
@@ -37,6 +41,7 @@ module.exports = (app, passport) => {
         });
     });
 
+    //GET REGISTER
     app.get('/register', checkAuthentication, (req,res) => {
         
         //Verificar que el usuario es administrador
@@ -44,12 +49,14 @@ module.exports = (app, passport) => {
             console.log('Usuario no autorizado quizo acceder a /register.');
             return res.redirect('/index');
         }
+        //Enviar mensajes sobre si la operación fue correcta o no
         res.render('register', {
             message: req.flash('signupMessage'),
             messageError: req.flash('signupMessageError')
         });
     });
 
+    //POST REGISTER
     app.post('/register', checkAuthentication, async (req,res) => {
         let query;
         let permisos = [];
@@ -84,6 +91,7 @@ module.exports = (app, passport) => {
     });
 };
 
+//Verificar si el usuario está logeado
 let checkAuthentication = (req,res,next) => {
     if(req.isAuthenticated()){
         req.isAuthenticated();
