@@ -34,7 +34,7 @@ const pool = require('./config/database');
 })();
 
 //middlewares
-app.use(morgan('dev')); //Logeo de peticiones al servidor
+//app.use(morgan('dev')); //Logeo de peticiones al servidor
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false})); //interpretar información de formularios a través de url
 app.use(session({
