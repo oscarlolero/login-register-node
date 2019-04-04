@@ -1,3 +1,9 @@
+//Evitar espacios en cajas de texto
+let AvoidSpace = (event) => {
+    var k = event ? event.which : window.event.keyCode;
+    if (k == 32) return false;
+}
+
 //Login page styling
 (function ($) {
     "use strict";

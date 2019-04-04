@@ -6,3 +6,6 @@ CREATE TABLE users (
 	permiso2 BOOL,
 	permiso3 BOOL
 );
+INSERT INTO users(
+	userid, username, password, permiso1, permiso2, permiso3)
+	VALUES (DEFAULT, 'admin', 'password', true, true, true);

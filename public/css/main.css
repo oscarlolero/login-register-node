@@ -424,21 +424,20 @@ iframe {
 /*------------------------------------------------------------------
 /*ANIMATED CHECKBOX*/
 .check {
+  display: inline;
   cursor: pointer;
   position: relative;
   margin: auto;
-  width: 18px;
-  height: 18px;
   -webkit-tap-highlight-color: transparent;
   transform: translate3d(0, 0, 0);
 }
 .check:before {
   content: "";
   position: absolute;
-  top: -15px;
-  left: -15px;
-  width: 48px;
-  height: 48px;
+  top: -25px;
+  left: -40px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: rgba(34,50,84,0.03);
   opacity: 0;
@@ -507,15 +506,44 @@ iframe {
   transition-delay: 0.15s;
 }
 .checkbox-container {
-  display: block;
   text-align: center;
 }
-.checkbox-container div:not(:first-child) {
-  margin-left: 18px;
-}
-.checkbox-container p, .checkbox-container div {
-  margin-left: 3px;
+.checkbox-container div {
   display: inline-block;
 }
+.checkbox-container div:not(:first-child) {
+  margin-left: 30px;
+}
 
+/*close button*/
+.close-button {
+  height: 35px;
+  width: 35px;
+  position: relative;
+  box-sizing: border-box;
+  line-height: 50px;
+  left: 380px;
+  top: 20px;
+  display: inline-block;
+}
+.close-button:before, .close-button:after {
+  transform: rotate(-45deg);
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -5px;
+  margin-left: -25px;
+  display: block;
+  height: 3px;
+  width: 20px;
+  background-color: #696868;
+  transition: all 0.25s ease-out;
+}
+.close-button:after {
+  transform: rotate(-135deg);
+}
+.close-button:hover:before, .close-button:hover:after {
+  transform: rotate(0deg);
+}
 

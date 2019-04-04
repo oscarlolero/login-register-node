@@ -2,7 +2,16 @@ const pool = require('./../config/database');
 module.exports = (app, passport) => {
 
     app.get('/index', checkAuthentication, (req,res) => {
-        res.render('index');
+        let permisos = [req.session.passport.user.permiso1, req.session.passport.user.permiso2, req.session.passport.user.permiso3];
+
+        if(req.session.passport.user.username == 'admin') {
+            res.redirect('/register');
+        } else {
+            res.render('index', {
+                username: req.session.passport.user.username,
+                permisos: permisos
+            });
+        }
     });
 
     app.get('/login', (req,res) => {
@@ -36,7 +45,8 @@ module.exports = (app, passport) => {
             return res.redirect('/index');
         }
         res.render('register', {
-            message: req.flash('signupMessage')
+            message: req.flash('signupMessage'),
+            messageError: req.flash('signupMessageError')
         });
     });
 
@@ -56,7 +66,7 @@ module.exports = (app, passport) => {
             const res = await pool.query(query);
             if(res.rowCount != 0) {
                 console.log('usuario ya existe');
-                return req.flash('signupMessage', 'El usuario ya existe.');
+                return req.flash('signupMessageError', 'El usuario ya existe.');
             }
             //Crear el usuario en la base de datos
             query = `INSERT INTO users(userid, username, password, permiso1, permiso2, permiso3) 
@@ -65,7 +75,7 @@ module.exports = (app, passport) => {
             req.flash('signupMessage', 'Usuario creado.');
 
         } catch(err) {
-            req.flash('signupMessage', 'Error al conectar con la base de datos.');
+            req.flash('signupMessageError', 'Error al conectar con la base de datos.');
             console.log(err);
         } finally {
             //Haya o no error, regresar a la página de registro

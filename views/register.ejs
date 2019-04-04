@@ -4,29 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+
     <title>Admin - Registro</title>
 </head>
 <body>
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100 p-b-20">
+                <a href="/logout" class="close-button"></a>
                 <span class="login100-form-title m-b-25">Registro</span>
-                <% if(message.length > 0) { %>
-                    <div class="alert alert-danger">
-                        <%= message %>
-                    </div>
+                <!-- Si se recibe mensaje de error mostrarlo, de lo contrario mostrar el de sucess en caso de ser recibido -->
+                <% if(messageError.length > 0) { %>   
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Error!</strong> <%= messageError %>
+                </div>
+                <% } else if(message.length > 0) { %>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Correcto!</strong> <%= message %>
+                </div>
                 <% } %>
                 <form class="login100-form validate-form" action="/register" method="POST">
                     <p class="info">Por favor introduzca los datos del usuario.</p>
-                    <div class="wrap-input100 validate-input m-t-35 m-b-35" data-validate="Escriba usuario">
+                    <div class="wrap-input100 validate-input m-t-35 m-b-35" data-validate="Escriba usuario" onkeypress="return AvoidSpace(event)">
                         <input class="input100" type="text" name="username" autocomplete="off">
                         <span class="focus-input100" data-placeholder="Usuario"></span>
                     </div>
-                    <div class="wrap-input100 validate-input m-b-45" data-validate="Escriba contraseña">
+                    <div class="wrap-input100 validate-input m-b-45" data-validate="Escriba contraseña" onkeypress="return AvoidSpace(event)">
                         <input class="input100" type="password" name="password">
                         <span class="focus-input100" data-placeholder="Contraseña"></span>
                     </div>
@@ -41,7 +49,6 @@
                                 <p>Permiso 1</p>
                             </label>
                         </div>
-                        
                         <div>
                             <input type="checkbox" id="permiso_2" name="permisos" value="2" style="display: none;">
                             <label for="permiso_2" class="check">
@@ -52,7 +59,6 @@
                                 <p>Permiso 2</p>
                             </label>
                         </div>
-                        
                         <div>
                             <input type="checkbox" id="permiso_3" name="permisos" value="3" style="display: none;">
                             <label for="permiso_3" class="check">
@@ -62,11 +68,8 @@
                                 </svg>
                                 <p>Permiso 3</p>
                             </label>
-                            
                         </div>
-                        
                     </div>
-
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">Registrar usuario</button>
                     </div>
@@ -74,7 +77,11 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="js/login.js"></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/main.js"></script>
 </body>
 </html>
