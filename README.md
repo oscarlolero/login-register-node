@@ -1,4 +1,4 @@
-# login-register-node
+# Sistema de login y registro en NodeJS usando PostgreSQL
 Sistema de login y registro en NodeJS usando PostgreSQL
 
 # Configuración de base de datos
