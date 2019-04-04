@@ -13,7 +13,7 @@ module.exports = (passport) => {
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
-    }, async function(req, username, inPassword, done) {
+    }, function(req, username, inPassword, done) {
         const query = `SELECT * FROM users WHERE username = '${username}'`;
         (async () => {
             //Verificar que los datos sean correctos
