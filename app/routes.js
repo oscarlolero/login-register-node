@@ -1,61 +1,84 @@
 const pool = require('./../config/database');
 module.exports = (app, passport) => {
 
-    // app.get('/index', (req,res) => {
-    //     if(req.isAuthenticated()) {
-    //         res.render('index');    
-    //     } else {
-    //         res.redirect('/login');
-    //     }
-    // });
+    app.get('/index', checkAuthentication, (req,res) => {
+        res.render('index');
+    });
 
-    // app.get('/login', (req,res) => {
-    //     if(req.isAuthenticated()) {
-    //         res.redirect('/index');  
-    //     } else {
-    //         res.render('login', {
-    //             message: req.flash('loginMessage')
-    //         });
-    //     }
-    // });
+    app.get('/login', (req,res) => {
+        if(req.isAuthenticated()) {
+            res.redirect('/index');  
+        } else {
+            res.render('login', {
+                message: req.flash('loginMessage')
+            });
+        }
+    });
 
-    // app.post('/login', passport.authenticate('local-login' , {
-    //     successRedirect: '/index',
-    //     failureRedirect: '/login',
-    //     failureFlash: true
-    // }));
+    app.post('/login', passport.authenticate('local-login' , {
+        successRedirect: '/index',
+        failureRedirect: '/login',
+        failureFlash: true
+    }));
 
-    // app.get('/logout', (req,res) => {
-    //     req.logout();
-    //     res.render('login', {
-    //         message: req.flash('loginMessage')
-    //     });
-    // });
+    app.get('/logout', checkAuthentication, (req,res) => {
+        req.logout();
+        res.render('login', {
+            message: req.flash('loginMessage')
+        });
+    });
 
-    app.get('/register', (req,res) => {
+    app.get('/register', checkAuthentication, (req,res) => {
+        
+        //Verificar que el usuario es administrador
+        if(req.session.passport.user.username != 'admin') {
+            console.log('Usuario no autorizado quizo acceder a /register.');
+            return res.redirect('/index');
+        }
         res.render('register', {
             message: req.flash('signupMessage')
         });
     });
 
-    app.post('/register', async (req,res) => {
-        console.log(req.body);
-        let query = `SELECT userid FROM users WHERE username = '${req.body.username}'`;
+    app.post('/register', checkAuthentication, async (req,res) => {
+        let query;
+        let permisos = [];
+
         try {
+            //Verificar los checkbox seleccionados y llenar el array que contiene los permisos que el usuario tiene expresado en bool.
+            if(req.body.permisos) {
+                permisos = [req.body.permisos.includes('1'), req.body.permisos.includes('2'), req.body.permisos.includes('3')];
+            } else {
+                permisos = [false, false, false];
+            }
+            //Verificar si el usuario existe en la base de datos
+            query = `SELECT userid FROM users WHERE username = '${req.body.username}'`;
             const res = await pool.query(query);
             if(res.rowCount != 0) {
                 console.log('usuario ya existe');
                 return req.flash('signupMessage', 'El usuario ya existe.');
             }
+            //Crear el usuario en la base de datos
             query = `INSERT INTO users(userid, username, password, permiso1, permiso2, permiso3) 
-            VALUES (DEFAULT, '${req.body.username}', '${req.body.password}', true, true, true);`;   
+            VALUES (DEFAULT, '${req.body.username}', '${req.body.password}', ${permisos[0]}, ${permisos[1]}, ${permisos[2]});`;   
             await pool.query(query);
             req.flash('signupMessage', 'Usuario creado.');
+
         } catch(err) {
             req.flash('signupMessage', 'Error al conectar con la base de datos.');
             console.log(err);
         } finally {
+            //Haya o no error, regresar a la página de registro
             res.redirect('/register');
         }
     });
 };
+
+let checkAuthentication = (req,res,next) => {
+    if(req.isAuthenticated()){
+        req.isAuthenticated();
+        next();
+    } else{
+        res.redirect("/login");
+    }
+}
