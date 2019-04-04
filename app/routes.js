@@ -39,6 +39,7 @@ module.exports = (app, passport) => {
     });
 
     app.post('/register', async (req,res) => {
+        console.log(req.body);
         let query = `SELECT userid FROM users WHERE username = '${req.body.username}'`;
         try {
             const res = await pool.query(query);
@@ -57,8 +58,4 @@ module.exports = (app, passport) => {
             res.redirect('/register');
         }
     });
-
-
-
-
 };

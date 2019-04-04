@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <title>Admin - Registro</title>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-b-20">
+                <span class="login100-form-title m-b-25">Registro</span>
+                <% if(message.length > 0) { %>
+                    <div class="alert alert-danger">
+                        <%= message %>
+                    </div>
+                <% } %>
+                <form class="login100-form validate-form" action="/register" method="POST">
+                    <p class="info">Por favor introduzca los datos del usuario.</p>
+                    <div class="wrap-input100 validate-input m-t-35 m-b-35" data-validate="Escriba usuario">
+                        <input class="input100" type="text" name="username" autocomplete="off">
+                        <span class="focus-input100" data-placeholder="Usuario"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-45" data-validate="Escriba contraseña">
+                        <input class="input100" type="password" name="password">
+                        <span class="focus-input100" data-placeholder="Contraseña"></span>
+                    </div>
+                    <div class="checkbox-container m-b-45">
+                        <div>
+                            <input type="checkbox" id="permiso_1" name="permisos" value="1" style="display: none;">
+                            <label for="permiso_1" class="check">
+                                <svg width="20px" height="20px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                                <p>Permiso 1</p>
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <input type="checkbox" id="permiso_2" name="permisos" value="2" style="display: none;">
+                            <label for="permiso_2" class="check">
+                                <svg width="20px" height="20px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                                <p>Permiso 2</p>
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <input type="checkbox" id="permiso_3" name="permisos" value="3" style="display: none;">
+                            <label for="permiso_3" class="check">
+                                <svg width="20px" height="20px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                                <p>Permiso 3</p>
+                            </label>
+                            
+                        </div>
+                        
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">Registrar usuario</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
