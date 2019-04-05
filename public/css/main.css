@@ -32,8 +32,8 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
+	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
 }
 
@@ -44,11 +44,11 @@ body, html {
 
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
+  font-family: Poppins-Regular, serif;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
-	margin: 0px;
+	margin: 0;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -66,20 +66,20 @@ a:hover {
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
+	margin: 0;
 }
 
 p {
-	font-family: Poppins-Regular;
+  font-family: Poppins-Regular, serif;
 	font-size: 17px;
 	line-height: 1.7;
 	color: #666666;
-	margin: 0px;
+	margin: 0;
   text-align: center;
 }
 
 ul, li {
-	margin: 0px;
+	margin: 0;
 	list-style-type: none;
 }
 
@@ -138,14 +138,14 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-  font-family: Poppins-Regular;
+  font-family: Poppins-Regular, serif;
   font-size: 15px;
   color: #999999;
   line-height: 1.5;
 }
 
 .txt2 {
-  font-family: Poppins-Regular;
+  font-family: Poppins-Regular, serif;
   font-size: 15px;
   color: #6a73b4;
   line-height: 1.5;
@@ -189,7 +189,7 @@ iframe {
 
 .login100-form-title {
   display: block;
-  font-family: Poppins-Bold;
+  font-family: Poppins-Bold, serif;
   font-size: 39px;
   color: #333333;
   line-height: 1.2;
@@ -219,7 +219,7 @@ iframe {
 }
 
 .input100 {
-  font-family: Poppins-SemiBold;
+  font-family: Poppins-SemiBold, serif;
   font-size: 18px;
   color: #555555;
   line-height: 1.2;
@@ -259,7 +259,7 @@ iframe {
 }
 
 .focus-input100::after {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Medium, serif;
   font-size: 18px;
   color: #999999;
   line-height: 1.2;
@@ -269,7 +269,7 @@ iframe {
   width: 100%;
   position: absolute;
   top: 15px;
-  left: 0px;
+  left: 0;
   padding-left: 5px;
 
   -webkit-transition: all 0.4s;
@@ -311,7 +311,7 @@ iframe {
 }
 
 .login100-form-btn {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Medium, serif;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
@@ -330,11 +330,10 @@ iframe {
   background-color: #6a73b4;
   border-radius: 25px;
 
-  box-shadow: 0 10px 30px 0px #6a73b477;
-  -moz-box-shadow: 0 10px 30px 0px #6a73b477;
-  -webkit-box-shadow: 0 10px 30px 0px #6a73b477;
-  -o-box-shadow: 0 10px 30px 0px #6a73b477;
-  -ms-box-shadow: 0 10px 30px 0px #6a73b477;
+  box-shadow: 0 10px 30px 0 #6a73b477;
+  -moz-box-shadow: 0 10px 30px 0 #6a73b477;
+  -webkit-box-shadow: 0 10px 30px 0 #6a73b477;
+  -o-box-shadow: 0 10px 30px 0 #6a73b477;
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -344,11 +343,10 @@ iframe {
 
 .login100-form-btn:hover  {
   background-color: #333333;
-  box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-  -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-  -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-  -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-  -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+  box-shadow: 0 10px 30px 0 rgba(51, 51, 51, 0.5);
+  -moz-box-shadow: 0 10px 30px 0 rgba(51, 51, 51, 0.5);
+  -webkit-box-shadow: 0 10px 30px 0 rgba(51, 51, 51, 0.5);
+  -o-box-shadow: 0 10px 30px 0 rgba(51, 51, 51, 0.5);
 }
 
 
@@ -374,10 +372,10 @@ iframe {
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  right: 0px;
+  right: 0;
   pointer-events: none;
 
-  font-family: Poppins-Regular;
+  font-family: Poppins-Regular, serif;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
@@ -394,7 +392,7 @@ iframe {
 
 .alert-validate::after {
   content: "\f06a";
-  font-family: "Font Awesome 5 Free";
+  font-family: "Font Awesome 5 Free", serif;
   font-size: 16px;
   color: #c80000;
 
