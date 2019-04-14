@@ -112,7 +112,7 @@ module.exports = (app, passport) => {
             if(req.session.passport.user.username === 'admin') { // Si es admin redireccionar a /register
                 res.redirect('/register');
             } else {
-                res.render('permiso2', { // Si tiene el permiso 2 y es admin, renderizar permiso1
+                res.render('permiso2', { // Si tiene el permiso 2 y es admin, renderizar permiso2
                     username: req.session.passport.user.username,
                     permisos: permisos
                 });
@@ -129,7 +129,7 @@ module.exports = (app, passport) => {
             if(req.session.passport.user.username === 'admin') { // Si es admin redireccionar a /register
                 res.redirect('/register');
             } else {
-                res.render('permiso3', { // Si tiene el permiso 3 y es admin, renderizar permiso1
+                res.render('permiso3', { // Si tiene el permiso 3 y es admin, renderizar permiso3
                     username: req.session.passport.user.username,
                     permisos: permisos
                 });
